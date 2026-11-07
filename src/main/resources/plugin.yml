@@ -1,0 +1,16 @@
+name: KiteBlocksAchievements
+version: 1.0.0-beta
+main: gg.kiteblocks.achievements.KiteBlocksAchievements
+api-version: '1.21'
+author: KiteBlocks
+softdepend: [LuckPerms, Essentials, PlayerPoints, ExcellentCrates, MultiCurrency, mcMMO]
+commands:
+  achievements:
+    aliases: [ach]
+    description: Open achievement menu
+  kba:
+    description: Admin achievements management
+    permission: kiteblocks.achievements.admin
+permissions:
+  kiteblocks.achievements.admin:
+    default: op

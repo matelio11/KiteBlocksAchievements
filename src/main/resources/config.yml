@@ -1,0 +1,610 @@
+# KiteBlocks Achievements - GUI and rewards blueprint
+# IMPORTANT: This is a valid YAML design, NOT a plug-and-play config for a known plugin.
+# A matching Paper achievements plugin must implement menus, tracking, claims, and API rewards.
+# Missing screenshot tiers are null/empty, intentionally.
+# Crate key IDs must match your actual ExcellentCrates IDs (case-sensitive).
+config_version: KiteBlocks-Achievements-Blueprint-1.0
+description: GUI/config design reference; requires an achievements plugin implementing this schema.
+commands:
+  player:
+  - achievements
+  - ach
+  admin:
+  - kba admin
+gui:
+  title: '&dKiteBlocks &8» &fAchievements'
+  rows: 6
+  fill: GRAY_STAINED_GLASS_PANE
+  category_click: LEFT
+  tier_claim: RIGHT
+  category_slots:
+    playtime: 10
+    boss_damage: 11
+    mining: 12
+    pvp_kills: 13
+    fishing: 14
+    farming: 15
+    mcmmo_levels: 16
+    earn_money: 21
+    mob_grinding: 22
+  tier_view:
+    title: '&dKiteBlocks &8» &f%category%'
+    rows: 6
+    back_slot: 49
+    next_slot: 53
+    previous_slot: 45
+    tier_slots_first_page:
+    - 10
+    - 11
+    - 12
+    - 13
+    - 14
+    - 15
+    - 16
+    - 19
+    - 20
+    - 21
+    - 22
+    - 23
+    - 24
+    - 25
+    - 28
+    - 29
+    - 30
+    - 31
+    - 32
+    - 33
+  tier_tooltip:
+    locked:
+    - '&dTier %tier%'
+    - '&7Requirement: &f%progress%&7/&f%requirement%'
+    - '&7Rewards:'
+    - '%rewards%'
+    - '&cNot unlocked yet'
+    ready:
+    - '&dTier %tier%'
+    - '&aCompleted!'
+    - '&7Rewards:'
+    - '%rewards%'
+    - '&eRight-Click to claim!'
+    claimed:
+    - '&dTier %tier%'
+    - '&aClaimed'
+    - '&7Rewards:'
+    - '%rewards%'
+  fly_info:
+    slot: 40
+    material: FEATHER
+    name: '&bFly Command'
+    lore:
+    - '&7Unlock through Playtime Tier 10'
+    - '&eRight-click to claim /fly access'
+    - '&7Requires EssentialsX permission: essentials.fly'
+    click: RIGHT
+    claim_permission: essentials.fly
+progress:
+  separate_per_player: true
+  claim_once_per_tier: true
+  server_authoritative: true
+  playtime_counts_minutes: true
+  prevent_creative_farming_exploits: true
+economy:
+  xp: MultiCurrency custom XP (must integrate via its API)
+  credits: PlayerPoints
+  money: Vault / EssentialsX
+crate_keys:
+  vote: Vote
+  pvp: PvP
+  lucky: Lucky
+  royal: Royal
+crate_key_command_template: cratekey give %player% %key_id% %amount%
+reward_commands:
+  credits: points give %player% %amount%
+  money: eco give %player% %amount%
+  fly_permission: lp user %player% permission set essentials.fly true
+  xp: REQUIRES_MULTICURRENCY_API_INTEGRATION
+special_item_commands:
+  pet_egg: null
+  ore_hopper: null
+  crop_hopper: null
+  mob_hopper: null
+  lizard_blessing: null
+  sell_wand_100_uses: null
+categories:
+  playtime:
+    display: Playtime
+    icon: CLOCK
+    metric: minutes_online
+    tiers:
+    - tier: 1
+      requirement: 30
+      rewards:
+      - xp: 5000
+      status: from_screenshot
+    - tier: 2
+      requirement: 60
+      rewards:
+      - credits: 5
+      status: from_screenshot
+    - tier: 3
+      requirement: 180
+      rewards:
+      - xp: 10000
+      status: from_screenshot
+    - tier: 4
+      requirement: 360
+      rewards:
+      - credits: 10
+      status: from_screenshot
+    - tier: 5
+      requirement: 720
+      rewards:
+      - key: pvp
+        amount: 1
+      status: from_screenshot
+    - tier: 6
+      requirement: 1440
+      rewards:
+      - xp: 100000
+      status: from_screenshot
+    - tier: 7
+      requirement: 4320
+      rewards:
+      - credits: 25
+      status: from_screenshot
+    - tier: 8
+      requirement: 10080
+      rewards:
+      - key: lucky
+        amount: 1
+      status: from_screenshot
+    - tier: 9
+      requirement: 30240
+      rewards:
+      - credits: 50
+      status: from_screenshot
+    - tier: 10
+      requirement: 60480
+      rewards:
+      - key: royal
+        amount: 1
+      - permission: essentials.fly
+      status: from_screenshot
+  boss_damage:
+    display: DBoss Damage
+    icon: NETHERITE_SWORD
+    metric: boss_damage
+    tiers: []
+  mining:
+    display: Mining
+    icon: DIAMOND_PICKAXE
+    metric: blocks_mined
+    tiers:
+    - tier: 1
+      requirement: 500
+      rewards:
+      - xp: 5000
+      status: from_screenshot
+    - tier: 2
+      requirement: 1000
+      rewards:
+      - special_item: pet_egg
+        amount: 1
+      status: from_screenshot
+    - tier: 3
+      requirement: 2000
+      rewards:
+      - credits: 10
+      status: from_screenshot
+    - tier: 4
+      requirement: 3000
+      rewards:
+      - key: pvp
+        amount: 1
+      - special_item: ore_hopper
+        amount: 1
+      status: from_screenshot
+    - tier: 5
+      requirement: 4000
+      rewards:
+      - xp: 15000
+      status: from_screenshot
+    - tier: 6
+      requirement: 5000
+      rewards:
+      - money: 25000
+      - key: vote
+        amount: 1
+      status: from_screenshot
+    - tier: 7
+      requirement: 10000
+      rewards:
+      - credits: 15
+      status: from_screenshot
+    - tier: 8
+      requirement: 15000
+      rewards:
+      - key: pvp
+        amount: 2
+      - special_item: ore_hopper
+        amount: 1
+      status: from_screenshot
+    - tier: 9
+      requirement: 20000
+      rewards:
+      - xp: 25000
+      status: from_screenshot
+    - tier: 10
+      requirement: 25000
+      rewards:
+      - special_item: pet_egg
+        amount: 1
+      - special_item: lizard_blessing
+        amount: 1
+      status: from_screenshot
+    - tier: 11
+      requirement: 30000
+      rewards:
+      - credits: 25
+      status: from_screenshot
+    - tier: 12
+      requirement: null
+      rewards: []
+      status: needs_screenshot
+    - tier: 13
+      requirement: 50000
+      rewards:
+      - xp: 50000
+      status: from_screenshot
+    - tier: 14
+      requirement: 75000
+      rewards:
+      - money: 100000
+      - key: vote
+        amount: 2
+      status: from_screenshot
+    - tier: 15
+      requirement: 100000
+      rewards:
+      - credits: 50
+      status: from_screenshot
+    - tier: 16
+      requirement: 125000
+      rewards:
+      - key: lucky
+        amount: 2
+      - special_item: ore_hopper
+        amount: 1
+      status: from_screenshot
+    - tier: 17
+      requirement: 150000
+      rewards:
+      - xp: 150000
+      - special_item: sell_wand_100_uses
+        amount: 1
+      status: from_screenshot
+    - tier: 18
+      requirement: 200000
+      rewards:
+      - special_item: pet_egg
+        amount: 3
+      status: from_screenshot
+    - tier: 19
+      requirement: 250000
+      rewards:
+      - credits: 75
+      status: from_screenshot
+    - tier: 20
+      requirement: 300000
+      rewards:
+      - key: pvp
+        amount: 2
+      - key: lucky
+        amount: 2
+      status: from_screenshot
+  pvp_kills:
+    display: PvP Kills
+    icon: IRON_SWORD
+    metric: pvp_player_kills
+    tiers:
+    - tier: 1
+      requirement: 1
+      rewards:
+      - xp: 10000
+      status: from_screenshot
+    - tier: 2
+      requirement: 5
+      rewards:
+      - credits: 5
+      status: from_screenshot
+    - tier: 3
+      requirement: 10
+      rewards:
+      - xp: 50000
+      status: from_screenshot
+    - tier: 4
+      requirement: 25
+      rewards:
+      - credits: 10
+      status: from_screenshot
+    - tier: 5
+      requirement: 50
+      rewards:
+      - key: pvp
+        amount: 1
+      status: from_screenshot
+    - tier: 6
+      requirement: 75
+      rewards:
+      - credits: 25
+      status: from_screenshot
+    - tier: 7
+      requirement: 100
+      rewards:
+      - xp: 100000
+      status: from_screenshot
+    - tier: 8
+      requirement: 125
+      rewards:
+      - key: lucky
+        amount: 1
+      status: from_screenshot
+    - tier: 9
+      requirement: 150
+      rewards:
+      - credits: 50
+      status: from_screenshot
+    - tier: 10
+      requirement: 250
+      rewards:
+      - key: royal
+        amount: 1
+      status: from_screenshot
+  fishing:
+    display: Fishing
+    icon: COD
+    metric: fish_caught
+    tiers: []
+  farming:
+    display: Farming
+    icon: DIAMOND_HOE
+    metric: crops_harvested
+    tiers:
+    - tier: 1
+      requirement: 1000
+      rewards:
+      - xp: 5000
+      status: from_screenshot
+    - tier: 2
+      requirement: 2500
+      rewards:
+      - special_item: pet_egg
+        amount: 1
+      status: from_screenshot
+    - tier: 3
+      requirement: 5000
+      rewards:
+      - credits: 10
+      status: from_screenshot
+    - tier: 4
+      requirement: 7500
+      rewards:
+      - key: pvp
+        amount: 1
+      - special_item: crop_hopper
+        amount: 1
+      status: from_screenshot
+    - tier: 5
+      requirement: 10000
+      rewards:
+      - xp: 15000
+      status: from_screenshot
+    - tier: 6
+      requirement: 15000
+      rewards:
+      - money: 25000
+      - key: vote
+        amount: 1
+      status: from_screenshot
+    - tier: 7
+      requirement: 20000
+      rewards:
+      - credits: 15
+      status: from_screenshot
+    - tier: 8
+      requirement: 25000
+      rewards:
+      - key: pvp
+        amount: 2
+      - special_item: crop_hopper
+        amount: 1
+      status: from_screenshot
+    - tier: 9
+      requirement: 30000
+      rewards:
+      - xp: 25000
+      status: from_screenshot
+    - tier: 10
+      requirement: 40000
+      rewards:
+      - special_item: pet_egg
+        amount: 1
+      - special_item: lizard_blessing
+        amount: 1
+      status: from_screenshot
+    - tier: 11
+      requirement: 50000
+      rewards:
+      - credits: 25
+      status: from_screenshot
+    - tier: 12
+      requirement: 75000
+      rewards:
+      - key: lucky
+        amount: 1
+      - key: royal
+        amount: 1
+      status: from_screenshot
+    - tier: 13
+      requirement: null
+      rewards: []
+      status: needs_screenshot
+    - tier: 14
+      requirement: 125000
+      rewards:
+      - money: 100000
+      - key: vote
+        amount: 2
+      status: from_screenshot
+    - tier: 15
+      requirement: 150000
+      rewards:
+      - credits: 50
+      status: from_screenshot
+    - tier: 16
+      requirement: 200000
+      rewards:
+      - key: lucky
+        amount: 2
+      - special_item: crop_hopper
+        amount: 1
+      status: from_screenshot
+    - tier: 17
+      requirement: 250000
+      rewards:
+      - xp: 150000
+      - special_item: sell_wand_100_uses
+        amount: 1
+      status: from_screenshot
+    - tier: 18
+      requirement: 300000
+      rewards:
+      - special_item: pet_egg
+        amount: 3
+      status: from_screenshot
+    - tier: 19
+      requirement: 400000
+      rewards:
+      - credits: 75
+      status: from_screenshot
+    - tier: 20
+      requirement: 500000
+      rewards:
+      - key: pvp
+        amount: 2
+      - key: lucky
+        amount: 2
+      status: from_screenshot
+  mcmmo_levels:
+    display: mcMMO Levels
+    icon: EXPERIENCE_BOTTLE
+    metric: mcmmo_total_levels
+    tiers: []
+  earn_money:
+    display: Earn Money
+    icon: PAPER
+    metric: total_money_earned
+    tiers: []
+  mob_grinding:
+    display: Mob Grinding
+    icon: DIAMOND_SWORD
+    metric: mobs_killed
+    tiers:
+    - tier: 1
+      requirement: 1000
+      rewards:
+      - xp: 5000
+      status: from_screenshot
+    - tier: 2
+      requirement: 1500
+      rewards:
+      - special_item: pet_egg
+        amount: 1
+      status: from_screenshot
+    - tier: 3
+      requirement: 2000
+      rewards:
+      - credits: 10
+      status: from_screenshot
+    - tier: 4
+      requirement: 2500
+      rewards:
+      - key: pvp
+        amount: 1
+      - special_item: mob_hopper
+        amount: 1
+      status: from_screenshot
+    - tier: 5
+      requirement: 5000
+      rewards:
+      - xp: 15000
+      status: from_screenshot
+    - tier: 6
+      requirement: 7500
+      rewards:
+      - money: 25000
+      - key: vote
+        amount: 1
+      status: from_screenshot
+    - tier: 7
+      requirement: 10000
+      rewards:
+      - credits: 15
+      status: from_screenshot
+    - tier: 8
+      requirement: 12500
+      rewards:
+      - key: pvp
+        amount: 2
+      - special_item: mob_hopper
+        amount: 1
+      status: from_screenshot
+    - tier: 9
+      requirement: 15000
+      rewards:
+      - xp: 25000
+      status: from_screenshot
+    - tier: 10
+      requirement: 20000
+      rewards:
+      - special_item: pet_egg
+        amount: 1
+      - special_item: lizard_blessing
+        amount: 1
+      status: from_screenshot
+    - tier: 11
+      requirement: 25000
+      rewards:
+      - credits: 25
+      status: from_screenshot
+    - tier: 12
+      requirement: 50000
+      rewards:
+      - key: lucky
+        amount: 1
+      - key: royal
+        amount: 1
+      status: from_screenshot
+    - tier: 13
+      requirement: 75000
+      rewards:
+      - xp: 50000
+      status: from_screenshot
+    - tier: 14
+      requirement: 100000
+      rewards:
+      - money: 100000
+      - key: vote
+        amount: 2
+      status: from_screenshot
+    - tier: 15
+      requirement: 150000
+      rewards:
+      - credits: 50
+      status: from_screenshot
+notes:
+- Some screenshots did not include every category or tier; missing ones are deliberately left blank.
+- OPBlocks Shield/Cannon/Cavalry keys were changed to PvP/Lucky/Royal respectively.
+- OPBlocks Spawner Key replaced with Royal Key because requested keys are only Vote/PvP/Lucky/Royal.
+- Playtime Tier 10 grants permanent /fly as an optional design choice; adjust if desired.
+- All commands are dispatched as console commands by the eventual plugin, not by YAML alone.
